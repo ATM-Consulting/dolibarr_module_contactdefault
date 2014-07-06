@@ -72,7 +72,7 @@ class modContactDefault extends DolibarrModules
         // use this->picto='pictovalue'
         // If file is in module/img directory under name object_pictovalue.png
         // use this->picto='pictovalue@module'
-        $this->picto = 'contactdefault@contactdefault'; // mypicto@contactdefault
+        $this->picto = 'contact'; // mypicto@contactdefault
         // Defined all module parts (triggers, login, substitutions, menus, css, etc...)
         // for default path (eg: /contactdefault/core/xxxxx) (0=disable, 1=enable)
         // for specific path of parts (eg: /contactdefault/core/modules/barcode)
