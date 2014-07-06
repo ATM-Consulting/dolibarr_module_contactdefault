@@ -4,3 +4,12 @@ Module104170Desc = Allow to define default contacts that will be used in documen
 ContactDefaultSetupPage = No specific setup is needed. The module activation has added a new "Contacts/Addresses" tab on your thirdpaties cards.
 DefaultContactsAddresses = Default Contacts/Adresses
 ContactAddedAutomatically = %s contact(s) automatically associated
+
+ContactDefault_Propal = Commercial proposal
+ContactDefault_Commande = Customer order
+ContactDefault_Facture = Customer invoice
+ContactDefault_Order_supplier = Supplier order
+ContactDefault_Invoice_supplier = Supplier invoice
+ContactDefault_Contrat = Contract
+ContactDefault_Project = Project
+ContactDefault_Fichinter = Intervention
