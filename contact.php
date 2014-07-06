@@ -29,6 +29,12 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 dol_include_once('/contactdefault/class/contactdefault.class.php');
 
 $langs->load("companies");
+$langs->load("propal");
+$langs->load("orders");
+$langs->load("bills");
+$langs->load("interventions");
+$langs->load("contracts");
+$langs->load("projects");
 
 $id=GETPOST('socid','int');
 if(empty($id)) $id=GETPOST('id','int');
@@ -37,10 +43,7 @@ $action=GETPOST('action','alpha');
 // Security check
 $result = restrictedArea($user, 'societe', $socid, '&societe', '', 'fk_soc', 'rowid');
 
-$object = new ContactDefault($db);
-//$object = new Societe($db);
-$object->fetch($id);
-$object->socid = $id;
+$object = new ContactDefault($db, $id);
 
 /*
  * Ajout d'un nouveau contact

@@ -114,27 +114,26 @@ class InterfaceContactDefaulttrigger
     public function run_trigger($action, $object, $user, $langs, $conf)
     {
         // Lors de la création d'un document, récupération des contacts et rôle associés à la société et association avec le document
-        if ($action == 'PROPAL_CREATE' || $action == 'ORDER_CREATE' || $action == 'BILL_CREATE'
-			|| $action == 'ORDER_SUPPLIER_CREATE' || $action == 'BILL_SUPPLIER_CREATE'
-			|| $action == 'CONTRACT_CREATE' || $action == 'FICHEINTER_CREATE'
-			|| $action == 'PROJECT_CREATE') {
-			
-			global $db, $langs;
-			$langs->load('contactdefault@contactdefault');
-			dol_include_once('/contactdefault/class/contactdefault.class.php');
-			
-			$contactdefault = new ContactDefault($db);
-			$contactdefault->id = $object->socid;
-			$TContact = $contactdefault->get_contact($object->element);
-			
-			$nb = 0;
-			foreach($TContact as $infos) {
-				$res = $object->add_contact($infos['fk_socpeople'], $infos['type_contact']);
-				if($res > 0) $nb++;
-			}
-			
-			if($nb > 0) {
-				setEventMessage($langs->trans('ContactAddedAutomatically', $nb));
+        if ($action == 'PROPAL_CREATE' || $action == 'ORDER_CREATE' || $action == 'BILL_CREATE'	|| $action == 'ORDER_SUPPLIER_CREATE' || $action == 'BILL_SUPPLIER_CREATE'
+			|| $action == 'CONTRACT_CREATE' || $action == 'FICHINTER_CREATE' || $action == 'PROJECT_CREATE') {
+				
+			if(!empty($object->socid)) {
+				global $db, $langs;
+				$langs->load('contactdefault@contactdefault');
+				dol_include_once('/contactdefault/class/contactdefault.class.php');
+				
+				$contactdefault = new ContactDefault($db, $object->socid);
+				$TContact = $contactdefault->get_contact($object->element);
+				
+				$nb = 0;
+				foreach($TContact as $infos) {
+					$res = $object->add_contact($infos['fk_socpeople'], $infos['type_contact']);
+					if($res > 0) $nb++;
+				}
+				
+				if($nb > 0) {
+					setEventMessage($langs->trans('ContactAddedAutomatically', $nb));
+				}
 			}
 			
             dol_syslog(

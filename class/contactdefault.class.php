@@ -1,7 +1,27 @@
 <?php
 
-class ContactDefault extends  Societe
+class ContactDefault extends Societe
 {
+	public $TElement = array();
+	
+	function __construct($db, $idsoc) {
+		global $conf;
+		
+		parent::__construct($db);
+		parent::fetch($idsoc);
+		
+		$this->socid = $this->id;
+		
+		if($this->client > 0 && $conf->propal->enabled) $this->TElement[] = 'propal';
+		if($this->client > 0 && $conf->commande->enabled) $this->TElement[] = 'commande';
+		if($this->client > 0 && $conf->facture->enabled) $this->TElement[] = 'facture';
+		if($this->client > 0 && $conf->contrat->enabled) $this->TElement[] = 'contrat';
+		if($this->client > 0 && $conf->ficheinter->enabled) $this->TElement[] = 'fichinter';
+		if($this->fournisseur > 0 && $conf->fournisseur->enabled) $this->TElement[] = 'order_supplier';
+		if($this->fournisseur > 0 && $conf->fournisseur->enabled) $this->TElement[] = 'invoice_supplier';
+		if($conf->projet->enabled) $this->TElement[] = 'project';
+	}
+	
 	 /**
      *    Get array of all contacts for an object
      *
@@ -46,7 +66,7 @@ class ContactDefault extends  Societe
 
                 if (! $list)
                 {
-                	$libelle_element = $langs->trans(ucfirst($obj->element));
+                	$libelle_element = $langs->trans('ContactDefault_'.ucfirst($obj->element));
                     $transkey="TypeContact_".$obj->element."_".$obj->source."_".$obj->code;
                     $libelle_type=($langs->trans($transkey)!=$transkey ? $langs->trans($transkey) : $obj->libelle);
                     $tab[$i]=array('source'=>$obj->source,'socid'=>$obj->socid,'id'=>$obj->id,
@@ -84,12 +104,12 @@ class ContactDefault extends  Societe
      */
     function liste_type_contact($source='internal', $order='code', $option=0, $activeonly=0)
     {
-        global $langs;
+        global $conf, $langs;
 
         $tab = array();
         $sql = "SELECT DISTINCT tc.rowid, tc.code, tc.libelle, tc.element";
         $sql.= " FROM ".MAIN_DB_PREFIX."c_type_contact as tc";
-        $sql.= " WHERE tc.element IN ('propal', 'commande', 'facture', 'order_supplier', 'invoice_supplier', 'project', 'contrat', 'fichinter')";
+        $sql.= " WHERE tc.element IN ('".implode("','", $this->TElement)."')";
         if ($activeonly == 1)
         	$sql.= " AND tc.active=1"; // only the active type
 
@@ -106,13 +126,14 @@ class ContactDefault extends  Societe
             {
                 $obj = $this->db->fetch_object($resql);
 				
-				$libelle_element = $langs->trans(ucfirst($obj->element));
+				$libelle_element = $langs->trans('ContactDefault_'.ucfirst($obj->element));
                 $transkey="TypeContact_".$obj->element."_".$source."_".$obj->code;
                 $libelle_type=($langs->trans($transkey)!=$transkey ? $langs->trans($transkey) : $obj->libelle);
                 if (empty($option)) $tab[$obj->rowid]=$libelle_element.' - '.$libelle_type;
                 else $tab[$obj->code]=$libelle_type;
                 $i++;
             }
+			asort($tab);
             return $tab;
         }
         else
