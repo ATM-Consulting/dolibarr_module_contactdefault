@@ -1,10 +1,10 @@
- CREATE  TABLE  `dolibarr_dev`.`llx_societe_contact` (  `rowid` int( 11  )  NOT  NULL  AUTO_INCREMENT ,
- `datecreate` datetime  DEFAULT NULL ,
- `statut` smallint( 6  ) DEFAULT  '5',
- `element_id` int( 11  )  NOT  NULL ,
- `fk_c_type_contact` int( 11  )  NOT  NULL ,
- `fk_socpeople` int( 11  )  NOT  NULL ,
- PRIMARY  KEY (  `rowid`  ) ,
- UNIQUE  KEY  `idx_element_contact_idx1` (  `element_id` ,  `fk_c_type_contact` ,  `fk_socpeople`  ) ,
- KEY  `fk_element_contact_fk_c_type_contact` (  `fk_c_type_contact`  ) ,
- KEY  `idx_element_contact_fk_socpeople` (  `fk_socpeople`  )  ) ENGINE  = InnoDB  DEFAULT CHARSET  = utf8;
+create table llx_element_contact
+(
+  rowid           integer AUTO_INCREMENT PRIMARY KEY,  
+  datecreate      datetime NULL, 			-- date de creation de l'enregistrement
+  statut          smallint DEFAULT 5, 		-- 5 inactif, 4 actif
+  
+  element_id		int NOT NULL, 		    -- la reference de l'element.
+  fk_c_type_contact	int NOT NULL,	        -- nature du contact.
+  fk_socpeople      integer NOT NULL
+)ENGINE=innodb;
