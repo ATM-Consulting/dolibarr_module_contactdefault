@@ -1,4 +1,4 @@
-create table llx_element_contact
+create table llx_societe_contact
 (
   rowid           integer AUTO_INCREMENT PRIMARY KEY,  
   datecreate      datetime NULL, 			-- date de creation de l'enregistrement
