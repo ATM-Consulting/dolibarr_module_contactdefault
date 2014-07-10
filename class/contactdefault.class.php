@@ -52,7 +52,7 @@ class ContactDefault extends Societe
         if ($source == 'external' || $source == 'thirdparty') $sql.= " AND tc.source = 'external'";
         $sql.= " AND tc.active=1";
         if ($statut >= 0) $sql.= " AND sc.statut = '".$statut."'";
-        $sql.=" ORDER BY tc.element, t.lastname ASC";
+        $sql.=" ORDER BY tc.element, tc.libelle, t.lastname ASC";
 
         dol_syslog(get_class($this)."::liste_contact", LOG_DEBUG);
         $resql=$this->db->query($sql);
@@ -232,8 +232,6 @@ class ContactDefault extends Societe
 
         $datecreate = dol_now();
 
-        $this->db->begin();
-
         // Insertion dans la base
         $sql = "INSERT INTO ".MAIN_DB_PREFIX."societe_contact";
         $sql.= " (element_id, fk_socpeople, datecreate, statut, fk_c_type_contact) ";
@@ -241,7 +239,7 @@ class ContactDefault extends Societe
         $sql.= "'".$this->db->idate($datecreate)."'";
         $sql.= ", 4, '". $id_type_contact . "' ";
         $sql.= ")";
-        dol_syslog(get_class($this)."::add_contact", LOG_DEBUG);
+        dol_syslog(get_class($this)."::add_contact ".$sql, LOG_DEBUG);
 
         $resql=$this->db->query($sql);
         if ($resql)
