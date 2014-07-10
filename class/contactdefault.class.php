@@ -248,11 +248,16 @@ class ContactDefault extends Societe
         {
             if (! $notrigger)
             {
-            	$result=$this->call_trigger(strtoupper($this->element).'_ADD_CONTACT', $user);
-	            if ($result < 0) { $this->db->rollback(); return -1; }
+                // Call triggers
+                include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
+                $interface=new Interfaces($this->db);
+                $result=$interface->run_triggers(strtoupper($this->element).'_ADD_CONTACT',$this,$user,$langs,$conf);
+                if ($result < 0) {
+                    $error++; $this->errors=$interface->errors;
+                }
+                // End call triggers
             }
 
-            $this->db->commit();
             return 1;
         }
         else
@@ -260,13 +265,12 @@ class ContactDefault extends Societe
             if ($this->db->errno() == 'DB_ERROR_RECORD_ALREADY_EXISTS')
             {
                 $this->error=$this->db->errno();
-				$this->db->rollback();
                 return -2;
             }
             else
             {
                 $this->error=$this->db->error();
-				$this->db->rollback();
+                dol_syslog($this->error,LOG_ERR);
                 return -1;
             }
         }
@@ -294,17 +298,22 @@ class ContactDefault extends Societe
         {
             if (! $notrigger)
             {
-            	$result=$this->call_trigger(strtoupper($this->element).'_DELETE_CONTACT', $user);
-	            if ($result < 0) { $this->db->rollback(); return -1; }
+                // Call triggers
+                include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
+                $interface=new Interfaces($this->db);
+                $result=$interface->run_triggers(strtoupper($this->element).'_DELETE_CONTACT',$this,$user,$langs,$conf);
+                if ($result < 0) {
+                    $error++; $this->errors=$interface->errors;
+                }
+                // End call triggers
             }
 
-            $this->db->commit();
             return 1;
         }
         else
         {
             $this->error=$this->db->lasterror();
-            $this->db->rollback();
+            dol_syslog(get_class($this)."::delete_contact error=".$this->error, LOG_ERR);
             return -1;
         }
     }

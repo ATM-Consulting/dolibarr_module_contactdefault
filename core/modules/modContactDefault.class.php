@@ -218,8 +218,8 @@ class modContactDefault extends DolibarrModules
         $r = 0;
         // Example:
 
-        $this->boxes[$r][1] = "contactdefault_box@contactdefault";
-        $r ++;
+        //$this->boxes[$r][1] = "contactdefault_box@contactdefault";
+        //$r ++;
         /*
           $this->boxes[$r][1] = "myboxb.php";
           $r++;
