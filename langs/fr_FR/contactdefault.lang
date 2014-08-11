@@ -1,6 +1,7 @@
 Module104170Name = Contact par défaut
 Module104170Desc = Permet de définir des contacts par défaut qui seront utilisés dans les documents
 
+ContactDefaultSetup = Paramétrage du module Contact par défaut
 ContactDefaultSetupPage = Aucun paramétrage spécifique n'est nécessaire. L'activation du module a ajouté un onglet "Contacts/Adresses" sur vos fiches tiers.
 DefaultContactsAddresses = Contacts/Adresses par défaut
 ContactAddedAutomatically = %s contact(s) associé(s) automatiquement

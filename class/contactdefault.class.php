@@ -285,9 +285,6 @@ class ContactDefault extends Societe
     {
         global $user,$langs,$conf;
 
-
-        $this->db->begin();
-
         $sql = "DELETE FROM ".MAIN_DB_PREFIX."societe_contact";
         $sql.= " WHERE rowid =".$rowid;
 
