@@ -1,6 +1,6 @@
 <?php
 /* <one line to give the program's name and a brief idea of what it does.>
- * Copyright (C) 2013 ATM Consulting <support@atm-consulting.fr>
+ * Copyright (C) 2015 ATM Consulting <support@atm-consulting.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
  */
 
 /**
- * 	\file		core/triggers/interface_99_modMyodule_Mytrigger.class.php
+ * 	\file		core/triggers/interface_99_modMyodule_ContactDefaulttrigger.class.php
  * 	\ingroup	contactdefault
  * 	\brief		Sample trigger
  * 	\remarks	You can create other triggers by copying this one
@@ -113,8 +113,8 @@ class InterfaceContactDefaulttrigger
      */
     public function run_trigger($action, $object, $user, $langs, $conf)
     {
-        // Lors de la création d'un document, récupération des contacts et rôle associés à la société et association avec le document
-        if ($action == 'PROPAL_CREATE' || $action == 'ORDER_CREATE' || $action == 'BILL_CREATE'	|| $action == 'ORDER_SUPPLIER_CREATE' || $action == 'BILL_SUPPLIER_CREATE'
+		// Lors de la création d'un document, récupération des contacts et rôle associés à la société et association avec le document
+		if ($action == 'PROPAL_CREATE' || $action == 'ORDER_CREATE' || $action == 'BILL_CREATE'	|| $action == 'ORDER_SUPPLIER_CREATE' || $action == 'BILL_SUPPLIER_CREATE'
 			|| $action == 'CONTRACT_CREATE' || $action == 'FICHINTER_CREATE' || $action == 'PROJECT_CREATE') {
 				
 			if(!empty($object->socid)) {
@@ -136,11 +136,11 @@ class InterfaceContactDefaulttrigger
 				}
 			}
 			
-            dol_syslog(
-                "Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id
-            );
-        }
+			dol_syslog(
+				"Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id
+			);
+		}
 
-        return 0;
-    }
+		return 0;
+	}
 }
