@@ -1,6 +1,6 @@
 <?php
 /* <one line to give the program's name and a brief idea of what it does.>
- * Copyright (C) 2013 ATM Consulting <support@atm-consulting.fr>
+ * Copyright (C) 2015 ATM Consulting <support@atm-consulting.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,10 +33,10 @@ function contactdefaultAdminPrepareHead()
     $head = array();
 
     $head[$h][0] = dol_buildpath("/contactdefault/admin/contactdefault_setup.php", 1);
-    $head[$h][1] = $langs->trans("Settings");
+    $head[$h][1] = $langs->trans("Parameters");
     $head[$h][2] = 'settings';
     $h++;
-    $head[$h][0] = dol_buildpath("/contactdefault/admin/about.php", 1);
+    $head[$h][0] = dol_buildpath("/contactdefault/admin/contactdefault_about.php", 1);
     $head[$h][1] = $langs->trans("About");
     $head[$h][2] = 'about';
     $h++;

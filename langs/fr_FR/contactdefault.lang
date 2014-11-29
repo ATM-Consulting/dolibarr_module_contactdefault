@@ -1,7 +1,11 @@
-Module104170Name = Contact par défaut
-Module104170Desc = Permet de définir des contacts par défaut qui seront utilisés dans les documents
+Module104170Name = ContactDefault
+Module104170Desc = ContactDefault Descripion
 
-ContactDefaultSetup = Paramétrage du module Contact par défaut
+ATMAbout = Ce module a été développé par <a href="http://www.atm-consulting.fr" target="_blank">ATM Consulting</a><br>Vous pouvez retrouver la documentation sur notre <a href="http://wiki.atm-consulting.fr/index.php/Accueil" target="_blank">wiki</a><br><br>Pour toute question technique ou retour, contactez-nous sur <a href="mailto:support@atm-consulting.fr">support@atm-consulting.fr</a><br><br>Pour toute question commerciale, contactez-nous sur <a href="mailto:contact@atm-consulting.fr">contact@atm-consulting.fr</a> ou au +33 9 77 19 50 70<br><br>Retrouvez nos autres modules sur <a href="http://www.dolistore.com/search.php?orderby=position&orderway=desc&search_query=atm&submit_search=Rechercher" target="_blank">Dolistore</a>
+
+ContactDefaultSetup = Configuration du module ContactDefault
+ContactDefaultAbout = A propos du module ContactDefault
+
 ContactDefaultSetupPage = Aucun paramétrage spécifique n'est nécessaire. L'activation du module a ajouté un onglet "Contacts/Adresses" sur vos fiches tiers.
 DefaultContactsAddresses = Contacts/Adresses par défaut
 ContactAddedAutomatically = %s contact(s) associé(s) automatiquement

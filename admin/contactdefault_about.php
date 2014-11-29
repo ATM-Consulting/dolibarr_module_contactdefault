@@ -1,6 +1,6 @@
 <?php
 /* <one line to give the program's name and a brief idea of what it does.>
- * Copyright (C) 2013 ATM Consulting <support@atm-consulting.fr>
+ * Copyright (C) 2015 ATM Consulting <support@atm-consulting.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,15 +28,10 @@ if (! $res) {
     $res = @include("../../../main.inc.php"); // From "custom" directory
 }
 
-
 // Libraries
 require_once DOL_DOCUMENT_ROOT . "/core/lib/admin.lib.php";
 require_once '../lib/contactdefault.lib.php';
 
-dol_include_once('/contactdefault/lib/php-markdown/markdown.php');
-
-
-//require_once "../class/myclass.class.php";
 // Translations
 $langs->load("contactdefault@contactdefault");
 
@@ -44,13 +39,6 @@ $langs->load("contactdefault@contactdefault");
 if (! $user->admin) {
     accessforbidden();
 }
-
-// Parameters
-$action = GETPOST('action', 'alpha');
-
-/*
- * Actions
- */
 
 /*
  * View
@@ -74,13 +62,14 @@ dol_fiche_head(
 );
 
 // About page goes here
-$buffer = file_get_contents(dol_buildpath('/contactdefault/README.md', 0));
-echo nl2br($buffer);
+print '<div style="float: left;"><img src="../img/Dolibarr_Preferred_Partner_logo.png" /></div>';
+print '<div>'.$langs->trans('ATMAbout').'</div>';
 
-echo '<br><br>',
-'<a href="' . dol_buildpath('/contactdefault/COPYING', 1) . '">',
-'<img src="' . dol_buildpath('/contactdefault/img/gplv3.png', 1) . '"/>',
-'</a>';
+dol_fiche_end();
+
+print '<br><center>';
+print '<a href="http://www.atm-consulting.fr" target="_blank"><img src="../img/ATM_logo.jpg" /></a>';
+print '</center>';
 
 llxFooter();
 
