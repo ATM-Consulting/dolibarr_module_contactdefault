@@ -127,6 +127,8 @@ class InterfaceContactDefaulttrigger
 				
 				$nb = 0;
 				foreach($TContact as $infos) {
+					// Gestion du cas spécifique de la création de propale avec sélection du contact, cela créé un bug si le contact est ajouté par le module contactdefault
+					if(GETPOST('contactidp') == $infos['fk_socpeople'] && $infos['type_contact'] == 41) continue;
 					$res = $object->add_contact($infos['fk_socpeople'], $infos['type_contact']);
 					if($res > 0) $nb++;
 				}
