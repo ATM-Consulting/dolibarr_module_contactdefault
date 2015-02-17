@@ -125,6 +125,35 @@ class InterfaceContactDefaulttrigger
 				$contactdefault = new ContactDefault($db, $object->socid);
 				$TContact = $contactdefault->get_contact($object->element);
 				
+				// Le trigger est appelé avant que le core n'ajoute lui-même des contacts (contact propale, clone), il ne faut pas les associer avant sinon bug
+				$TContactAlreadyLinked = array();
+				if(GETPOST('action') == 'confirm_clone') {
+					$class = get_class($object);
+					$cloneFrom = new $class($db);
+					$cloneFrom->fetch(GETPOST('id'));
+					$TContactAlreadyLinked = array_merge($cloneFrom->liste_contact(-1,'external'), $cloneFrom->liste_contact(-1,'internal'));
+				}
+
+				foreach($TContact as $i => $infos) {
+					// Gestion du cas spécifique de la création de propale avec sélection du contact, cela créé un bug si le contact est ajouté par le module contactdefault avant
+					if(GETPOST('contactidp') == $infos['fk_socpeople'] && $infos['type_contact'] == 41) unset($TContact[$i]);
+					if(GETPOST('contactid') == $infos['fk_socpeople'] && $infos['type_contact'] == 41) unset($TContact[$i]); // contactid >= 3.7
+					// Gestion du cas spécifique de la création de comamnde avec sélection du contact (nouveau 3.7)
+					if(GETPOST('contactid') == $infos['fk_socpeople'] && $infos['type_contact'] == 101) unset($TContact[$i]); // contactid >= 3.7
+					
+					// Gestion du cas du clone
+					foreach ($TContactAlreadyLinked as $contactData) {
+						if($contactData['id'] == $infos['fk_socpeople'] && $contactData['fk_c_type_contact'] == $infos['type_contact']) unset($TContact[$i]);
+					}
+				}
+				
+				/*echo '<pre>';
+				print_r($_REQUEST);
+				print_r($object);
+				print_r($TContact);
+				print_r($TContactAlreadyLinked);
+				exit;*/
+				
 				$nb = 0;
 				foreach($TContact as $infos) {
 					// Gestion du cas spécifique de la création de propale avec sélection du contact, cela créé un bug si le contact est ajouté par le module contactdefault
