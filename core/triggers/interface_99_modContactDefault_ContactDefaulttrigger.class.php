@@ -114,8 +114,8 @@ class InterfaceContactDefaulttrigger
     public function run_trigger($action, $object, $user, $langs, $conf)
     {
 		// Lors de la création d'un document, récupération des contacts et rôle associés à la société et association avec le document
-		if ($action == 'PROPAL_CREATE' || $action == 'ORDER_CREATE' || $action == 'BILL_CREATE'	|| $action == 'ORDER_SUPPLIER_CREATE' || $action == 'BILL_SUPPLIER_CREATE'
-			|| $action == 'CONTRACT_CREATE' || $action == 'FICHINTER_CREATE' || $action == 'PROJECT_CREATE') {
+		if ($action === 'PROPAL_CREATE' || $action === 'ORDER_CREATE' || $action === 'BILL_CREATE'	|| $action === 'ORDER_SUPPLIER_CREATE' || $action === 'BILL_SUPPLIER_CREATE'
+			|| $action === 'CONTRACT_CREATE' || $action === 'FICHINTER_CREATE' || $action === 'PROJECT_CREATE') {
 				
 			if(!empty($object->socid)) {
 				global $db, $langs;
