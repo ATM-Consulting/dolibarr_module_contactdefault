@@ -33,13 +33,17 @@ class ContactDefault extends Societe
     function liste_contact($statut=-1,$source='external',$list=0)
     {
         global $langs;
-
+		
+		$doli_min_37 = $this->getDoliVersion();
+		
         $tab=array();
 
         $sql = "SELECT sc.rowid, sc.statut, sc.fk_socpeople as id, sc.fk_c_type_contact";    // This field contains id of llx_socpeople or id of llx_user
         if ($source == 'internal') $sql.=", '-1' as socid";
         if ($source == 'external' || $source == 'thirdparty') $sql.=", t.fk_soc as socid";
-        $sql.= ", t.civilite as civility, t.lastname as lastname, t.firstname, t.email";
+		
+		if ($doli_min_37) $sql.= ", t.civility as civility, t.lastname as lastname, t.firstname, t.email";
+		else $sql.= ", t.civilite as civility, t.lastname as lastname, t.firstname, t.email";
         $sql.= ", tc.source, tc.element, tc.code, tc.libelle";
         $sql.= " FROM ".MAIN_DB_PREFIX."c_type_contact tc";
         $sql.= ", ".MAIN_DB_PREFIX."societe_contact sc";
@@ -91,6 +95,19 @@ class ContactDefault extends Societe
             return -1;
         }
     }
+
+	function getDoliVersion()
+	{
+		dol_include_once('/core/lib/admin.lib.php');
+		
+		$doli_min_37 = true;
+		$dolibarr_version = versiondolibarrarray();
+		if ($dolibarr_version[0] < 3 || ($dolibarr_version[0] == 3 && $dolibarr_version[1] < 7)) { // DOL_VERSION < 3.7
+			$doli_min_37 = false;
+		}
+		
+		return $doli_min_37;
+	}
 
 
 	/**
