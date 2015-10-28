@@ -128,9 +128,11 @@ class InterfaceContactDefaulttrigger
 				// Le trigger est appelé avant que le core n'ajoute lui-même des contacts (contact propale, clone), il ne faut pas les associer avant sinon bug
 				$TContactAlreadyLinked = array();
 				if(GETPOST('action') == 'confirm_clone') {
+					$objectid = GETPOST('id');
+					if(empty($objectid)) $objectid = GETPOST('facid'); // Gestion du cas de la facture ou l'URL ne contient pas 'id' mais 'facid' lors du clone
 					$class = get_class($object);
 					$cloneFrom = new $class($db);
-					$cloneFrom->fetch(GETPOST('id'));
+					$cloneFrom->fetch($objectid);
 					$TContactAlreadyLinked = array_merge($cloneFrom->liste_contact(-1,'external'), $cloneFrom->liste_contact(-1,'internal'));
 				}
 
