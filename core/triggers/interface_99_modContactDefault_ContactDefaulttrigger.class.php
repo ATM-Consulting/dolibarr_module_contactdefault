@@ -116,7 +116,13 @@ class InterfaceContactDefaulttrigger
 		// Lors de la création d'un document, récupération des contacts et rôle associés à la société et association avec le document
 		if ($action === 'PROPAL_CREATE' || $action === 'ORDER_CREATE' || $action === 'BILL_CREATE'	|| $action === 'ORDER_SUPPLIER_CREATE' || $action === 'BILL_SUPPLIER_CREATE'
 			|| $action === 'CONTRACT_CREATE' || $action === 'FICHINTER_CREATE' || $action === 'PROJECT_CREATE') {
-				
+			
+			// Si on vient de split propal alors on fait rien
+			if (strcmp(GETPOST('modulefrom', 'alpha'), 'splitpropal') === 0)
+			{
+				return 0;
+			}
+			
 			if(!empty($object->socid)) {
 				global $db, $langs;
 				$langs->load('contactdefault@contactdefault');
