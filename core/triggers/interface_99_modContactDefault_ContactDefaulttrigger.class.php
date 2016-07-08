@@ -45,7 +45,7 @@ class InterfaceContactDefaulttrigger
      */
     public function __construct($db)
     {
-        $this->db = $db;
+        $this->db = &$db;
 
         $this->name = preg_replace('/^Interface/i', '', get_class($this));
         $this->family = "demo";
@@ -117,25 +117,20 @@ class InterfaceContactDefaulttrigger
 		if ($action === 'PROPAL_CREATE' || $action === 'ORDER_CREATE' || $action === 'BILL_CREATE'	|| $action === 'ORDER_SUPPLIER_CREATE' || $action === 'BILL_SUPPLIER_CREATE'
 			|| $action === 'CONTRACT_CREATE' || $action === 'FICHINTER_CREATE' || $action === 'PROJECT_CREATE') {
 			
-			// Si on vient de split propal alors on fait rien
-			if (strcmp(GETPOST('modulefrom', 'alpha'), 'splitpropal') === 0)
-			{
-				return 0;
-			}
-			
 			if(!empty($object->socid)) {
 				global $db, $langs;
 				$langs->load('contactdefault@contactdefault');
 				dol_include_once('/contactdefault/class/contactdefault.class.php');
 				
-				$contactdefault = new ContactDefault($db, $object->socid);
+				$contactdefault = new ContactDefault($this->db, $object->socid);
 				$TContact = $contactdefault->get_contact($object->element);
 				
 				// Le trigger est appelé avant que le core n'ajoute lui-même des contacts (contact propale, clone), il ne faut pas les associer avant sinon bug
 				$TContactAlreadyLinked = array();
-				if(GETPOST('action') == 'confirm_clone') {
-					$objectid = GETPOST('id');
-					if(empty($objectid)) $objectid = GETPOST('facid'); // Gestion du cas de la facture ou l'URL ne contient pas 'id' mais 'facid' lors du clone
+				$objectid = GETPOST('id');
+				if(empty($objectid)) $objectid = GETPOST('facid'); // Gestion du cas de la facture ou l'URL ne contient pas 'id' mais 'facid' lors du clone
+				if ($objectid > 0)
+				{
 					$class = get_class($object);
 					$cloneFrom = new $class($db);
 					$cloneFrom->fetch($objectid);
