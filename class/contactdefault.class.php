@@ -30,7 +30,7 @@ class ContactDefault extends Societe
      *    @param	int         $list       0:Return array contains all properties, 1:Return array contains just id
      *    @return	array		            Array of contacts
      */
-    function liste_contact($statut=-1,$source='external',$list=0)
+    function liste_contact($statut=-1,$source='external',$list=0, $code='')
     {
         global $langs;
 		
@@ -119,7 +119,7 @@ class ContactDefault extends Societe
      *      @param  string	$activeonly    0=all type of contact, 1=only the active
      *      @return array       		Array list of type of contacts (id->label if option=0, code->label if option=1)
      */
-    function liste_type_contact($source='internal', $order='code', $option=0, $activeonly=0)
+    function liste_type_contact($source='internal', $order='code', $option=0, $activeonly=0, $code = '')
     {
         global $conf, $langs;
 
