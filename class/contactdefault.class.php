@@ -76,7 +76,7 @@ class ContactDefault extends Societe
                     $tab[$i]=array('source'=>$obj->source,'socid'=>$obj->socid,'id'=>$obj->id,
 					               'nom'=>$obj->lastname,      // For backward compatibility
 					               'civility'=>$obj->civility, 'lastname'=>$obj->lastname, 'firstname'=>$obj->firstname, 'email'=>$obj->email,
-					               'rowid'=>$obj->rowid,'code'=>$obj->code,'libelle'=>$libelle_element.' - '.$libelle_type,'status'=>$obj->statut, 'fk_c_type_contact' => $obj->fk_c_type_contact, 'element'=>$obj->element);
+					               'rowid'=>$obj->rowid,'code'=>$obj->code,'libelle'=>$libelle_element.' - '.$libelle_type,'status'=>$obj->statut,'statuscontact'=>$obj->statut, 'fk_c_type_contact' => $obj->fk_c_type_contact, 'element'=>$obj->element);
                 }
                 else
                 {
