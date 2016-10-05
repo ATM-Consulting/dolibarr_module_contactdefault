@@ -117,7 +117,7 @@ class InterfaceContactDefaulttrigger
 		if ($action === 'PROPAL_CREATE' || $action === 'ORDER_CREATE' || $action === 'BILL_CREATE'	|| $action === 'ORDER_SUPPLIER_CREATE' || $action === 'BILL_SUPPLIER_CREATE'
 			|| $action === 'CONTRACT_CREATE' || $action === 'FICHINTER_CREATE' || $action === 'PROJECT_CREATE') {
 			
-			if(!empty($object->socid)) {
+			if(!empty($object->socid) && $object->socid != '-1') {
 				global $db, $langs;
 				$langs->load('contactdefault@contactdefault');
 				dol_include_once('/contactdefault/class/contactdefault.class.php');
