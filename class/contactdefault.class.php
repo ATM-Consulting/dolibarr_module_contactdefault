@@ -3,15 +3,15 @@
 class ContactDefault extends Societe
 {
 	public $TElement = array();
-	
+
 	function __construct($db, $idsoc) {
 		global $conf;
-		
+
 		parent::__construct($db);
 		parent::fetch($idsoc);
-		
+
 		$this->socid = $this->id;
-		
+
 		if($this->client > 0 && $conf->propal->enabled) $this->TElement[] = 'propal';
 		if($this->client > 0 && $conf->commande->enabled) $this->TElement[] = 'commande';
 		if($this->client > 0 && $conf->facture->enabled) $this->TElement[] = 'facture';
@@ -21,7 +21,7 @@ class ContactDefault extends Societe
 		if($this->fournisseur > 0 && $conf->fournisseur->enabled) $this->TElement[] = 'invoice_supplier';
 		if($conf->projet->enabled) $this->TElement[] = 'project';
 	}
-	
+
 	 /**
      *    Get array of all contacts for an object
      *
@@ -33,15 +33,15 @@ class ContactDefault extends Societe
     function liste_contact($statut=-1,$source='external',$list=0, $code='')
     {
         global $langs;
-		
+
 		$doli_min_37 = $this->getDoliVersion();
-		
+
         $tab=array();
 
         $sql = "SELECT sc.rowid, sc.statut, sc.fk_socpeople as id, sc.fk_c_type_contact";    // This field contains id of llx_socpeople or id of llx_user
         if ($source == 'internal') $sql.=", '-1' as socid";
         if ($source == 'external' || $source == 'thirdparty') $sql.=", t.fk_soc as socid";
-		
+
 		if ($doli_min_37) $sql.= ", t.civility as civility, t.lastname as lastname, t.firstname, t.email";
 		else $sql.= ", t.civilite as civility, t.lastname as lastname, t.firstname, t.email";
         $sql.= ", tc.source, tc.element, tc.code, tc.libelle";
@@ -99,13 +99,13 @@ class ContactDefault extends Societe
 	function getDoliVersion()
 	{
 		dol_include_once('/core/lib/admin.lib.php');
-		
+
 		$doli_min_37 = true;
 		$dolibarr_version = versiondolibarrarray();
 		if ($dolibarr_version[0] < 3 || ($dolibarr_version[0] == 3 && $dolibarr_version[1] < 7)) { // DOL_VERSION < 3.7
 			$doli_min_37 = false;
 		}
-		
+
 		return $doli_min_37;
 	}
 
@@ -124,14 +124,14 @@ class ContactDefault extends Societe
         global $conf, $langs;
 
         $tab = array();
-        $sql = "SELECT DISTINCT tc.rowid, tc.code, tc.libelle, tc.element";
+        $sql = "SELECT DISTINCT tc.rowid, tc.code, tc.libelle, tc.element, tc.position";
         $sql.= " FROM ".MAIN_DB_PREFIX."c_type_contact as tc";
         $sql.= " WHERE tc.element IN ('".implode("','", $this->TElement)."')";
         if ($activeonly == 1)
         	$sql.= " AND tc.active=1"; // only the active type
 
         if (! empty($source)) $sql.= " AND tc.source='".$source."'";
-        $sql.= " ORDER by tc.element, tc.".$order;
+        $sql.= " ORDER BY tc.element, tc.".$order;
 
         //print "sql=".$sql;
         $resql=$this->db->query($sql);
@@ -142,7 +142,7 @@ class ContactDefault extends Societe
             while ($i < $num)
             {
                 $obj = $this->db->fetch_object($resql);
-				
+
 				$libelle_element = $langs->trans('ContactDefault_'.ucfirst($obj->element));
                 $transkey="TypeContact_".$obj->element."_".$source."_".$obj->code;
                 $libelle_type=($langs->trans($transkey)!=$transkey ? $langs->trans($transkey) : $obj->libelle);
@@ -290,7 +290,7 @@ class ContactDefault extends Societe
             }
         }
     }
-    
+
      /**
      *    Delete a link to contact line
      *
@@ -329,7 +329,7 @@ class ContactDefault extends Societe
             return -1;
         }
     }
-	
+
 	/**
      * 		Update status of a contact linked to object
      *
@@ -364,7 +364,7 @@ class ContactDefault extends Societe
         }
 
     }
-    
+
         /**
      *      Update a link to contact line
      *

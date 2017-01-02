@@ -168,7 +168,7 @@ if ($id > 0)
 	print '</div>';
 
 	print '<br>';
-	
+
 	// Contacts lines (modules that overwrite templates must declare this into descriptor)
 	$dirtpls=array_merge($conf->modules_parts['tpl'],array('/core/tpl'));
 	foreach($dirtpls as $reldir)
