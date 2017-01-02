@@ -133,8 +133,10 @@ class InterfaceContactDefaulttrigger
 				{
 					$class = get_class($object);
 					$cloneFrom = new $class($db);
-					$cloneFrom->fetch($objectid);
-					$TContactAlreadyLinked = array_merge($cloneFrom->liste_contact(-1,'external'), $cloneFrom->liste_contact(-1,'internal'));
+					$r = $cloneFrom->fetch($objectid);
+					if ($r <= 0) $cloneFrom->fetch($object->id); // Cas rencontré via TK5110 - une facture est créé sur l'appel d'un trigger quand on classe délivré une commande, le GETPOST de id est faux car il s'agit de l'id de commande et non de l'objet créé
+					
+					if (!empty($cloneFrom->id))	$TContactAlreadyLinked = array_merge($cloneFrom->liste_contact(-1,'external'), $cloneFrom->liste_contact(-1,'internal'));
 				}
 
 				foreach($TContact as $i => $infos) {
