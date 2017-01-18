@@ -124,7 +124,7 @@ class ContactDefault extends Societe
         global $conf, $langs;
 
         $tab = array();
-        $sql = "SELECT DISTINCT tc.rowid, tc.code, tc.libelle, tc.element, tc.position";
+        $sql = "SELECT DISTINCT tc.rowid, tc.code, tc.libelle, tc.element";
         $sql.= " FROM ".MAIN_DB_PREFIX."c_type_contact as tc";
         $sql.= " WHERE tc.element IN ('".implode("','", $this->TElement)."')";
         if ($activeonly == 1)
