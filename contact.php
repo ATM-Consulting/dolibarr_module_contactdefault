@@ -179,5 +179,5 @@ if ($id > 0)
 }
 
 
-$db->close();
 llxFooter();
+$db->close();
