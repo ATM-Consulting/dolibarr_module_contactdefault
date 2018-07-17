@@ -132,7 +132,7 @@ if ($id > 0)
 	$langs->trans("OrderCard");
 
 	$head = societe_prepare_head($object);
-    dol_fiche_head($head, 'contact', $langs->trans("ThirdParty"),0,'company');
+    dol_fiche_head($head, 'contactDefault', $langs->trans("ThirdParty"),0,'company');
 
 	print '<table class="border" width="100%">';
 
