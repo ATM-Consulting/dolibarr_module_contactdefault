@@ -135,7 +135,7 @@ class modContactDefault extends DolibarrModules
 		// 'thirdparty'       to add a tab in third party view
 		// 'user'             to add a tab in user view
         $this->tabs = array(
-			'thirdparty:+contactDefault:DefaultContactsAddresses:contactdefault@contactdefault:$user->rights->societe->lire:/contactdefault/contact.php?socid=__ID__'
+			'thirdparty:+defaultcontact:DefaultContactsAddresses:contactdefault@contactdefault:$user->rights->societe->lire:/contactdefault/contact.php?socid=__ID__'
 		);
 
         // Dictionaries
