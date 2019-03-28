@@ -176,6 +176,38 @@ class InterfaceContactDefaulttrigger
 				"Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id
 			);
 		}
+		elseif($action === 'COMPANY_CREATE' && !empty($conf->global->CONTACTDEFAULT_AUTO_ADD_CONTACT) && $object->element == 'societe'){
+
+			global $db;
+
+			$langs->load('contactdefault@contactdefault');
+			dol_include_once('/contactdefault/class/contactdefault.class.php');
+
+			$TSalesRepresentatives = $object->getSalesRepresentatives($user,1);
+			if(empty($TSalesRepresentatives) && GETPOST('commercial', 'array')){
+				$TSalesRepresentatives = GETPOST('commercial', 'array'); // c'est super moche !!! mais j'ai pas le choix
+			}
+
+			if(is_array($TSalesRepresentatives) && !empty($TSalesRepresentatives)){
+				$contactid = reset ( $TSalesRepresentatives );
+
+				$sql = "SELECT tc.rowid, tc.element";
+				$sql.= " FROM ".MAIN_DB_PREFIX."c_type_contact as tc";
+				$sql.= " WHERE ";
+				$sql.= " source='internal'";
+				$sql.= " AND code='SALESREPFOLL' AND active=1";
+				$resql=$db->query($sql);
+
+				if ($resql)
+				{
+					$contactDefault = new ContactDefault($object->db, $object->id);
+					while($obj = $db->fetch_object($resql)){
+						$res = $contactDefault->add_contact($contactid, $obj->rowid, 'internal');
+					}
+				}
+			}
+
+		}
 
 		return 0;
 	}
