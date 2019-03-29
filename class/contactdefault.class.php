@@ -238,7 +238,7 @@ class ContactDefault extends Societe
             $sql.= " FROM ".MAIN_DB_PREFIX."c_type_contact as tc";
             $sql.= " WHERE element='".$this->element."'";
             $sql.= " AND source='".$source."'";
-            $sql.= " AND code='".$type_contact."' AND active=1";print $sql; exit();
+            $sql.= " AND code='".$type_contact."' AND active=1";
             $resql=$this->db->query($sql);
             if ($resql)
             {
