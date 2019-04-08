@@ -205,6 +205,11 @@ class InterfaceContactDefaulttrigger
 						$res = $contactDefault->add_contact($contactid, $obj->rowid, 'internal');
 					}
 				}
+				else{
+				    dol_print_error($db);
+				    setEventMessage($langs->trans('contactDefaultSqlError'),'errors');
+				    return -1;
+                }
 			}
 
 		}

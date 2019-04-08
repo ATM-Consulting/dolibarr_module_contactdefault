@@ -21,3 +21,4 @@ ContactDefault_Fichinter = Intervention
 
 # SETUP
 CONTACTDEFAULT_AUTO_ADD_CONTACT=Lors de la création d'un nouveau client mettre le commercial lié en tant que "Responsable suivi facturation" dans l'onglet "contact /adresses par défaut"
+contactDefaultSqlError=Module contact par defaut : Erreur lors de la récupération de la liste des commerciaux
