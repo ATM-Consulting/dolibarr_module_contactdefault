@@ -6,7 +6,7 @@ ATMAbout = Ce module a été développé par <a href="http://www.atm-consulting.
 ContactDefaultSetup = Configuration du module ContactDefault
 ContactDefaultAbout = A propos du module ContactDefault
 
-ContactDefaultSetupPage = Aucun paramétrage spécifique n'est nécessaire. L'activation du module a ajouté un onglet "Contacts/Adresses" sur vos fiches tiers.
+ContactDefaultSetupPage = L'activation du module a ajouté un onglet "Contacts/Adresses" sur vos fiches tiers.
 DefaultContactsAddresses = Contacts/Adresses par défaut
 ContactAddedAutomatically = %s contact(s) associé(s) automatiquement
 
@@ -18,3 +18,7 @@ ContactDefault_Invoice_supplier = Facture fournisseur
 ContactDefault_Contrat = Contrat
 ContactDefault_Project = Projet
 ContactDefault_Fichinter = Intervention
+
+# SETUP
+CONTACTDEFAULT_AUTO_ADD_CONTACT=Lors de la création d'un nouveau client mettre le commercial lié en tant que "Responsable suivi facturation" dans l'onglet "contact /adresses par défaut"
+contactDefaultSqlError=Module contact par defaut : Erreur lors de la récupération de la liste des commerciaux
