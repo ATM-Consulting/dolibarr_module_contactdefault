@@ -195,6 +195,7 @@ class InterfaceContactDefaulttrigger
 				$sql.= " FROM ".MAIN_DB_PREFIX."c_type_contact as tc";
 				$sql.= " WHERE ";
 				$sql.= " source='internal'";
+				$sql.= " element='facture'";
 				$sql.= " AND code='SALESREPFOLL' AND active=1";
 				$resql=$db->query($sql);
 
