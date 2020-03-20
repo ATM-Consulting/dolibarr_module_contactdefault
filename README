@@ -17,3 +17,11 @@
  */
 
 
+This module functionality has been integrated in Dolibarr 11.0
+To switch from this module to the standard integrated, you must execute the following SQL statement :
+
+INSERT INTO llx_societe_contacts(entity, date_creation, fk_soc, fk_c_type_contact, fk_socpeople, tms, import_key)
+SELECT 1,NOW(),element_id,fk_c_type_contact,fk_socpeople,NOW(),'ATM_TRANSFER' FROM llx_societe_contact
+WHERE element_id IN (select rowid from llx_societe) AND fk_socpeople IN (SELECT rowid FROM llx_socpeople);
+
+Then you can deactivate the module.
