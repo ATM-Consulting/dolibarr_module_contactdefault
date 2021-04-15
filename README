@@ -21,7 +21,8 @@ This module functionality has been integrated in Dolibarr 11.0
 To switch from this module to the standard integrated, you must execute the following SQL statement :
 
 INSERT INTO llx_societe_contacts(entity, date_creation, fk_soc, fk_c_type_contact, fk_socpeople, tms, import_key)
-SELECT 1,NOW(),element_id,fk_c_type_contact,fk_socpeople,NOW(),'ATM_TRANSFER' FROM llx_societe_contact
-WHERE element_id IN (select rowid from llx_societe) AND fk_socpeople IN (SELECT rowid FROM llx_socpeople);
+SELECT 1,NOW(),sc.element_id,sc.fk_c_type_contact,sc.fk_socpeople,NOW(),'ATM_TRANSFER' FROM llx_societe_contact sc
+LEFT JOIN llx_societe_contacts scs ON (scs.fk_soc = sc.element_id AND scs.fk_c_type_contact = sc.fk_c_type_contact AND sc.fk_socpeople = scs.fk_socpeople)
+WHERE sc.element_id IN (select rowid from llx_societe) AND sc.fk_socpeople IN (SELECT rowid FROM llx_socpeople) AND scs.rowid IS NULL;
 
 Then you can deactivate the module.
