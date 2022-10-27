@@ -54,7 +54,7 @@ if ($action == 'addcontact')
     if ($id > 0)
     {
     	$contactid = (GETPOST('userid','int') ? GETPOST('userid','int') : GETPOST('contactid','int'));
-  		$result = $object->add_contact($contactid, GETPOST('type'), GETPOST('source'));
+  		$result = $object->add_contact($contactid, ((DOL_VERSION < 13) ? GETPOST('type') : GETPOST('typecontact')), GETPOST('source'));
     }
 
 	if ($result >= 0)

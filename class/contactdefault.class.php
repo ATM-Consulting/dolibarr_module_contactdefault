@@ -122,7 +122,7 @@ class ContactDefault extends Societe
     function liste_type_contact($source='internal', $order='code', $option=0, $activeonly=0, $code = '')
     {
         global $conf, $langs;
-		
+
         $tab = array();
         $sql = "SELECT DISTINCT tc.rowid, tc.code, tc.libelle, tc.element, tc.".$order;
         $sql.= " FROM ".MAIN_DB_PREFIX."c_type_contact as tc";
